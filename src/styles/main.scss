@@ -1,15 +1,20 @@
-// --- Grundlayout ---
+$primary-color: #2f831e;
+$secondary-color: #21853c;
+$text-color: #1b3a2f;
+$bg-color: #e6f0e6;
+$card-bg: #ffffff;
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #e6f0e6;
-  color: #1b3a2f;
+  background: $bg-color;
+  color: $text-color;
 }
 
 #app {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   padding: 1rem;
 }
 
@@ -18,10 +23,11 @@ header {
   margin-bottom: 2rem;
 
   h1 {
-    color: #2f831e;
+    color: $primary-color;
   }
 
   #search-container {
+
     margin-top: 1rem;
 
     input {
@@ -36,14 +42,13 @@ header {
       font-size: 1rem;
       margin-left: 0.5rem;
       cursor: pointer;
-      background-color: #2f831e;
+      background: $primary-color;
       color: white;
       border: none;
       border-radius: 4px;
-      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #21853c;
+        background: $secondary-color;
       }
     }
   }
@@ -51,17 +56,108 @@ header {
 
 main {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 2rem;
 
   #weather-container,
   #map-container,
   #places-container {
-    background-color: white;
+    background: $card-bg;
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 150px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
 }
 
+#map-container {
+  height: 400px;
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.day {
+  position: relative;
+  background: #f6faf6;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  animation: cardFloat 3s ease-in-out infinite alternate;
+}
+
+.day:hover {
+  transform: translateY(-6px);
+}
+
+@keyframes cardFloat {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-5px); }
+}
+
+.date {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.icon {
+  font-size: 2.8rem;
+  margin: 0.5rem 0;
+}
+
+.temp.hot {
+  color: #e74c3c;
+}
+
+.temp.cold {
+  color: #3498db;
+}
+
+.temp.mild {
+  color: #f39c12;
+}
+
+.sunny .icon {
+  animation: sunSpin 3s linear infinite;
+}
+
+@keyframes sunSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.3); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.rainy .icon {
+  animation: rainBounce 1s infinite;
+}
+
+@keyframes rainBounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+  100% { transform: translateY(0); }
+}
+
+.snowy .icon {
+  animation: snowFall 2s infinite;
+}
+
+@keyframes snowFall {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+  100% { transform: translateY(0); }
+}
+
+.cloudy .icon {
+  animation: cloudMove 3s ease-in-out infinite alternate;
+}
+
+@keyframes cloudMove {
+  from { transform: translateX(-10px); }
+  to { transform: translateX(10px); }
+}
+#weather-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
