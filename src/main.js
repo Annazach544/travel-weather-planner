@@ -1,24 +1,21 @@
 import './styles/main.scss'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// --- DOM-element ---
+const cityInput = document.getElementById('city-input')
+const searchBtn = document.getElementById('search-btn')
+const weatherContainer = document.getElementById('weather-container')
+const mapContainer = document.getElementById('map-container')
+const placesContainer = document.getElementById('places-container')
 
-setupCounter(document.querySelector('#counter'))
+// Event Listener för sökknappen
+searchBtn.addEventListener('click', () => {
+  const city = cityInput.value.trim()
+  if (!city) {
+    alert('Skriv in en stad först!')
+    return
+  }
+
+  weatherContainer.innerHTML = `<p>Hämtar väder för <strong>${city}</strong>...</p>`
+  mapContainer.innerHTML = `<p>Laddar karta...</p>`
+  placesContainer.innerHTML = `<p>Laddar sevärdheter...</p>`
+})

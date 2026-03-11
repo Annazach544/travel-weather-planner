@@ -4,10 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>travel-weather-app</title>
+    <title>Travel Weather App</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <header>
+        <h1>Travel Weather Planner</h1>
+        <div id="search-container">
+          <input type="text" id="city-input" placeholder="Skriv stad..." />
+          <button id="search-btn">Sök</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="weather-container"></section>
+        <section id="map-container"></section>
+        <section id="places-container"></section>
+      </main>
+    </div>
+
+    <!-- Viktigt! Ladda JS som modul -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
