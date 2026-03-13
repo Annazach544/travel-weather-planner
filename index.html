@@ -5,11 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Travel Weather Planner</title>
 <link rel="stylesheet" href="/src/styles/main.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="app">
-  <header>
-    <h1>Travel Weather Planner</h1>
+<header>
+  <h1>🌍 Travel Weather Planner</h1>
+
+  <p class="intro-lead">
+    Drömmer du om nästa resa?
+  </p>
+
+  <p class="intro-text">
+    Sök efter en stad och se väderprognosen för de kommande dagarna samt sevärdheter i närheten. 
+    Perfekt när du planerar en resa – eller bara vill utforska världen lite hemifrån.
+  </p>
     <div id="search-container">
       <input type="text" id="city-input" placeholder="Skriv stad..." />
       <button id="search-btn">Sök</button>
@@ -23,6 +33,10 @@
   <div class="plane-container">
     <div class="plane">✈️</div>
   </div>
+
+  <footer>
+    <p>Kontakt: info@travelweather.se | © 2026 Travel Weather Planner</p>
+  </footer>
 </div>
 <script type="module" src="/src/main.js"></script>
 </body>

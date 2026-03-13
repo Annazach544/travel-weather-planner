@@ -86,10 +86,14 @@ async function searchCity() {
   }
 
   const places = await getPlaces(coords.lat, coords.lon)
-  let placesHTML = `<h2>Sevärdheter nära ${coords.name}</h2><ul>`
+  let placesHTML = `<h2>Sevärdheter</h2><ul>`
   places.forEach(p=>{
     const placeName = p.name || (p.tags && p.tags.name)
-    if(placeName) placesHTML += `<li>📍 ${placeName}</li>`
+    if(placeName) placesHTML += `
+<li class="place-card">
+  <span class="place-icon">📍</span>
+  <span class="place-name">${placeName}</span>
+</li>`
   })
   placesHTML += "</ul>"
   placesContainer.innerHTML = placesHTML
