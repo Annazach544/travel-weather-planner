@@ -62,11 +62,11 @@
 @keyframes planeFly {
 
   0% {
-    transform: translate(0, 0) rotate(-15deg);
+    transform: translate(0, 0) rotate(0deg);
   }
 
   100% {
-    transform: translate(120vw, -110vh) rotate(-30deg);
+    transform: translate(120vw, -110vh) rotate(0deg);
   }
 
 }
