@@ -10,6 +10,7 @@ const searchBtn = document.getElementById('search-btn')
 const cityInput = document.getElementById('city-input')
 const mapContainer = document.getElementById('map-container')
 
+// Initiera Leaflet-karta
 let map = L.map('map-container').setView([59.3293, 18.0686], 5)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
@@ -17,34 +18,49 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let marker
 
+/**
+ * Returnerar CSS-klass för temperatur.
+ * @param {number} temp - Temperatur i Celsius.
+ * @returns {string} - 'hot', 'cold' eller 'mild'.
+ */
 function getTempClass(temp) {
   if (temp >= 25) return 'hot'
   if (temp <= 10) return 'cold'
   return 'mild'
 }
 
+/**
+ * Huvudfunktion som söker efter en stad och uppdaterar sidan.
+ * Den hämtar koordinater, väderdata och sevärdheter, uppdaterar kartan
+ * och genererar dynamiskt väder- och sevärdhetskort.
+ * 
+ * @async
+ * @function
+ */
 async function searchCity() {
   const city = cityInput.value.trim()
   if (!city) return alert("Skriv in en stad!")
 
+  // Hämta koordinater via geokodnings-API
   const coords = await getCoordinates(city)
   if (!coords) {
     alert("Kunde inte hitta staden.")
     return
   }
 
+  // Hämta väderdata via väder-API
   const weatherData = await getWeather(coords.lat, coords.lon)
   if (!weatherData) return
 
+  // Uppdatera kartan med ny position
   map.setView([coords.lat, coords.lon], 10)
-
   if (marker) marker.remove()
   marker = L.marker([coords.lat, coords.lon])
     .addTo(map)
     .bindPopup(coords.name)
     .openPopup()
 
-  // Dynamiskt skapa väderkort
+  // Skapa väderkort dynamiskt
   let weatherContainer = document.getElementById('weather-container')
   if (!weatherContainer) {
     weatherContainer = document.createElement('section')
@@ -77,7 +93,7 @@ async function searchCity() {
   html += "</div>"
   weatherContainer.innerHTML = html
 
-  // Dynamiskt skapa sevärdhetskort
+  // Skapa sevärdhetskort dynamiskt
   let placesContainer = document.getElementById('places-container')
   if (!placesContainer) {
     placesContainer = document.createElement('section')
@@ -99,6 +115,38 @@ async function searchCity() {
   placesContainer.innerHTML = placesHTML
 }
 
+/**
+ * Eventlistener för klick på sökknappen.
+ * @listens click
+ */
 searchBtn.addEventListener("click", searchCity)
-cityInput.addEventListener("keypress", e=>{ if(e.key==="Enter") searchCity() })
-  
+
+/**
+ * Eventlistener för Enter-knappen i inputfältet.
+ * @listens keypress
+ */
+cityInput.addEventListener("keypress", e=>{
+  if(e.key==="Enter") searchCity()
+})
+
+/**
+ * Dokumentation för externa API-funktioner:
+ *
+ * @function getCoordinates
+ * @param {string} city - Namn på staden
+ * @returns {Promise<{lat: number, lon: number, name: string}>} - Koordinater för staden
+ *
+ * @function getWeather
+ * @param {number} lat - Latitud
+ * @param {number} lon - Longitud
+ * @returns {Promise<Object>} - Väderdata
+ *
+ * @function getPlaces
+ * @param {number} lat - Latitud
+ * @param {number} lon - Longitud
+ * @returns {Promise<Array>} - Lista med sevärdheter i närheten
+ *
+ * @function getWeatherIcon
+ * @param {number} code - Väderkod
+ * @returns {string} - Emoji eller SVG för angivet väder
+ */
