@@ -5,6 +5,16 @@ import { getCoordinates } from './api/geocoding.js'
 import { getWeather } from './api/weather.js'
 import { getWeatherIcon } from './utils/weatherIcons.js'
 import { getPlaces } from './api/places.js'
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow
+})
 
 const searchBtn = document.getElementById('search-btn')
 const cityInput = document.getElementById('city-input')
